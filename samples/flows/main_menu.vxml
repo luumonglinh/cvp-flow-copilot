@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml" xml:lang="en-US">
+
+  <!-- Synthetic sample: main menu for a fictional telecom IVR -->
+  <form id="mainMenu">
+    <field name="menuChoice">
+      <prompt>
+        For billing, press 1.
+        For technical support, press 2.
+        To hear your account balance, press 3.
+      </prompt>
+      <grammar mode="dtmf" version="1.0" root="choice" xmlns="http://www.w3.org/2001/06/grammar">
+        <rule id="choice">
+          <one-of>
+            <item>1</item>
+            <item>2</item>
+            <item>3</item>
+          </one-of>
+        </rule>
+      </grammar>
+
+      <filled>
+        <if cond="menuChoice == '1'">
+          <goto next="billing_menu.vxml"/>
+        <elseif cond="menuChoice == '2'"/>
+          <goto next="tech_support.vxml"/>
+        <elseif cond="menuChoice == '3'"/>
+          <goto next="account_balance.vxml"/>
+        </if>
+      </filled>
+    </field>
+  </form>
+</vxml>

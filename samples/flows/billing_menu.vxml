@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml" xml:lang="en-US">
+
+  <!-- Synthetic sample: billing sub-menu for a fictional telecom IVR -->
+  <form id="billingMenu">
+    <catch event="error">
+      <prompt>Sorry, we are having technical difficulties. Please call back later.</prompt>
+      <exit/>
+    </catch>
+
+    <field name="billingChoice">
+      <prompt>
+        To make a payment, press 1.
+        To hear your last bill, press 2.
+        To speak with a billing representative, press 0.
+      </prompt>
+      <grammar mode="dtmf" version="1.0" root="choice" xmlns="http://www.w3.org/2001/06/grammar">
+        <rule id="choice">
+          <one-of>
+            <item>1</item>
+            <item>2</item>
+            <item>0</item>
+          </one-of>
+        </rule>
+      </grammar>
+
+      <noinput>
+        <prompt>Sorry, I didn't hear anything.</prompt>
+        <reprompt/>
+      </noinput>
+
+      <nomatch>
+        <prompt>Sorry, I didn't hear anything.</prompt>
+        <reprompt/>
+      </nomatch>
+
+      <filled>
+        <if cond="billingChoice == '1'">
+          <goto next="make_payment.vxml"/>
+        <elseif cond="billingChoice == '2'"/>
+          <goto next="last_bill.vxml"/>
+        <elseif cond="billingChoice == '0'"/>
+          <goto next="transfer_billing.vxml"/>
+        </if>
+      </filled>
+    </field>
+  </form>
+</vxml>
